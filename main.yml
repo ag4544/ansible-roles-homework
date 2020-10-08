@@ -3,10 +3,8 @@
   hosts: builder
   roles:
     - role: builder
-      become: yes
 
 - name: Configure webserver
   hosts: webserver
   roles:
     - role: webserver
-      become: yes

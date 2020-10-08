@@ -12,8 +12,8 @@
 
 - name: RSYNC building artefacts
   synchronize:
-    src: "{{ groups.builder | first }}":/var/boxfuse-sample/target/hello-1.0.war
+    src: /var/boxfuse-sample/target/hello-1.0.war
     dest: /var/lib/tomcat9/webapps/ROOT.war
-  delegate_to: "{{ groups.webserver | first }}"
+  delegate_to: "{{ groups.builder | first }}"
   notify: 
   - restart tomcat9

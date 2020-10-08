@@ -1,13 +1,9 @@
 ---
 - name: install required packages
   apt:
-    name: "{{ item }}"
+    name: ['git', 'default-jdk', 'maven']
     state: present
     update_cache: true
-  with_items:
-    - git
-    - default-jdk
-    - maven
 
 - name: Clone source code from git
   git:

@@ -1,12 +1,9 @@
 ---
 - name: install required packages
   apt:
-    name: "{{ item }}"
+    name: ['default-jdk', 'tomcat9']
     state: present
     update_cache: true
-  with_items:
-    - default-jdk
-    - tomcat9
 
 - name: Remove ROOT dir from tomcat 
   file:

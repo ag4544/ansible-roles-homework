@@ -1,2 +1,24 @@
 ---
-# tasks file for webserver
+- name: install required packages
+  apt:
+    name: {{ item }}
+    state: present
+    update_cache: true
+  with_items:
+    - default-jdk
+    - tomcat9
+
+- name: Remove ROOT dir from tomcat 
+  file:
+    path: /var/lib/tomcat9/webapps/ROOT
+    state: absent
+
+- name: RSYNC building artefacts
+  synchronize:
+    mode: pull
+    src: rsync://{{ groups.builder | first }}/var/boxfuse-sample/target/hello-1.0.war
+    dest: /var/lib/tomcat9/webapps/ROOT.war
+  delegate_to: {{ groups. | first }}
+  notify: 
+  - restart tomcat9
+

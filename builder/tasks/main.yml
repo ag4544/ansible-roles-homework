@@ -1,2 +1,21 @@
 ---
-# tasks file for builder
+- name: install required packages
+  apt:
+    name: {{ item }}
+    state: present
+    update_cache: true
+  with_items:
+    - git
+    - default-jdk
+    - maven
+
+- name: Clone source code from git
+  git:
+    repo: https://github.com/ag4544/boxfuse-sample.git
+    dest: /var/boxfuse-sample/
+
+- name: Compile from source
+  shell: mvn package
+  args:
+    chdir: /var/boxfuse-sample/
+  
